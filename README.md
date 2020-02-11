@@ -8,7 +8,7 @@
 Аналогично с контроллерами
 ```
 php artisan package:installrequire "milkamil93/evocms-viewsdevices" "*"
-php artisan sct:install
+php artisan vdt:install
 ```
 
 Сделан на основе https://github.com/Ser1ous/seriousCustomTemplate

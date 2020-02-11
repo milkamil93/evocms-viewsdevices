@@ -9,7 +9,7 @@ class ViewsDevicesTemplateCommand extends Command
     /**
      * @var string
      */
-    protected $signature = 'sct:install';
+    protected $signature = 'vdt:install';
 
     /**
      * @var string
