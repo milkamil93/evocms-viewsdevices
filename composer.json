@@ -1,0 +1,27 @@
+{
+  "name": "milkamil93/evocms-viewsdevices",
+  "description": "Разделения шаблонов на desktop, mobile и tablet",
+  "type": "package",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kamil Shamatov",
+      "email": "milkamil93@gmail.com"
+    }
+  ],
+  "require": {
+    "mobiledetect/mobiledetectlib": "^2.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "EvolutionCMS\\ViewsDevices\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "EvolutionCMS\\ViewsDevices\\ViewsDevicesServiceProvider"
+      ]
+    }
+  }
+}
