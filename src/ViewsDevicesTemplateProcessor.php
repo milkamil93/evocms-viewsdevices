@@ -39,7 +39,7 @@ class ViewsDevicesTemplateProcessor extends TemplateProcessor
                 $template = $folderDevice . 'tpl-' . $doc['template'];
                 break;
             case $this->core['view']->exists($folderDevice . $templateAlias):
-                $classDir = str_replace('/', '\\\\', ucfirst($folderDevice));
+                $classDir = str_replace('/', '\\', ucfirst($folderDevice));
                 $baseClassName = $this->core->getConfig($this->configName) . $classDir . 'BaseController';
                 if (class_exists($baseClassName)) {
                     $classArray = explode('.', $templateAlias);

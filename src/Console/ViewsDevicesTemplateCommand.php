@@ -52,7 +52,7 @@ class ViewsDevicesTemplateCommand extends Command
             $name = 'y';
         }
         if (strtolower($name) == 'y') {
-            $namespace = $this->ask('Please enter u namespace? (Like: ViewsDevices\\\\Controllers\\\\)');
+            $namespace = $this->ask('Please enter u namespace? (Like: EvolutionCMS\\\\Main\\\\Controllers\\\\)');
             if (!File::isDirectory($this->directory)) {
                 File::makeDirectory($this->directory, 0755, true);
             }
