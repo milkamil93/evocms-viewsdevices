@@ -47,7 +47,7 @@ class ViewsDevicesTemplateProcessor extends TemplateProcessor
                         return ucfirst(trim($item));
                     }, $classArray);
                     $classViewPart = implode('.', $classArray);
-                    $className = str_replace('.', '\\', $classViewPart);
+                    $className = $this->dashesToCamelCase(str_replace('.', '\\', $classViewPart));
                     $className = $this->core->getConfig($this->configName) . $classDir . ucfirst($className) . 'Controller';
                     if (!class_exists($className)) {
                         $className = $baseClassName;
@@ -92,5 +92,10 @@ class ViewsDevicesTemplateProcessor extends TemplateProcessor
             $dir = '';
 
         return $dir;
+    }
+
+    private function dashesToCamelCase($string)
+    {
+        return str_replace('-', '', ucwords($string, '-'));
     }
 }
