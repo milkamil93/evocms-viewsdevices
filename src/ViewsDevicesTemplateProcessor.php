@@ -6,7 +6,7 @@ use EvolutionCMS\TemplateProcessor;
 class ViewsDevicesTemplateProcessor extends TemplateProcessor
 {
     private $configName = 'ViewsDevicesTemplateNamespace';
-    private $templateAlias;
+
     private $md;
 
     public function getBladeDocumentContent()
@@ -20,9 +20,9 @@ class ViewsDevicesTemplateProcessor extends TemplateProcessor
                 $templates = SiteTemplate::all()->pluck('templatealias','id')->toArray();
                 \Cache::forever($key, $templates);
             }
-            $this->setTemplateAlias($templates[$doc['template']]);
+            $templateAlias = $templates[$doc['template']];
         } else {
-            $this->setTemplateAlias(SiteTemplate::select('templatealias')->find($doc['template'])->templatealias);
+            $templateAlias = SiteTemplate::select('templatealias')->find($doc['template'])->templatealias;
         }
 
         $this->md = $MD = new \Mobile_Detect;
@@ -38,11 +38,11 @@ class ViewsDevicesTemplateProcessor extends TemplateProcessor
             case $this->core['view']->exists($folderDevice . 'tpl-' . $doc['template']):
                 $template = $folderDevice . 'tpl-' . $doc['template'];
                 break;
-            case $this->core['view']->exists($folderDevice . $this->templateAlias):
+            case $this->core['view']->exists($folderDevice . $templateAlias):
                 $classDir = str_replace('/', '\\', ucfirst($folderDevice));
                 $baseClassName = $this->core->getConfig($this->configName) . $classDir . 'BaseController';
                 if (class_exists($baseClassName)) {
-                    $classArray = explode('.', $this->templateAlias);
+                    $classArray = explode('.', $templateAlias);
                     $classArray = array_map(function ($item) {
                         return ucfirst(trim($item));
                     }, $classArray);
@@ -54,7 +54,7 @@ class ViewsDevicesTemplateProcessor extends TemplateProcessor
                     }
                     $customClass = new $className();
                 }
-                $template = $folderDevice . $this->templateAlias;
+                $template = $folderDevice . $templateAlias;
                 break;
             default:
                 $content = $doc['template'] ? $this->core->documentContent : $doc['content'];
@@ -70,14 +70,6 @@ class ViewsDevicesTemplateProcessor extends TemplateProcessor
                 }
         }
         return $template;
-    }
-
-    private function setTemplateAlias($alias)
-    {
-        if (!$this->templateAlias)
-        {
-            $this->templateAlias = $alias;
-        }
     }
 
     private function getFolderDevice($tablet = true, $mobile = true)
